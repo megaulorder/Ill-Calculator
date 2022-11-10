@@ -10,8 +10,8 @@ data class UiOperation(
 
 data class DataOperation(
 	val base: Base,
-	val numberOne: Array<Boolean>,
-	val numberTwo: Array<Boolean>,
+	val numberOne: BooleanArray,
+	val numberTwo: BooleanArray,
 	val operator: Operator,
 	val result: Long? = null,
 )

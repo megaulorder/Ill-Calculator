@@ -38,7 +38,7 @@ class ScreenController(
 		) {
 			"Numbers are not hexadecimal"
 		} else {
-			NumbersController(operation).getResult()
+			MapperController(operation).map()
 		}
 	}
 }
