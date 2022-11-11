@@ -26,14 +26,14 @@ class CalculatorController(
 		).mapResult()
 	}
 
-	private fun and(numberOne: BooleanArray, numberTwo: BooleanArray): BooleanArray {
-	}
+	private fun and(numberOne: BooleanArray, numberTwo: BooleanArray): BooleanArray =
+		BooleanArray(numberOne.size) { numberOne[it] && numberTwo[it] }
 
-	private fun or(numberOne: BooleanArray, numberTwo: BooleanArray): BooleanArray {
-	}
+	private fun or(numberOne: BooleanArray, numberTwo: BooleanArray): BooleanArray =
+		BooleanArray(numberOne.size) { numberOne[it] || numberTwo[it] }
 
-	private fun xor(numberOne: BooleanArray, numberTwo: BooleanArray): BooleanArray {
-	}
+	private fun xor(numberOne: BooleanArray, numberTwo: BooleanArray): BooleanArray =
+		BooleanArray(numberOne.size) { numberOne[it] != numberTwo[it] }
 
 	private fun makeSameLength(difference: Int, number: BooleanArray): BooleanArray {
 		val result = MutableList(difference.absoluteValue) { false }
