@@ -1,10 +1,11 @@
 package com.megaulorder.illcalculator
 
+import android.view.View
 import android.widget.*
 import androidx.core.widget.addTextChangedListener
 
 class ScreenWidget(
-	private val baseView: RadioGroup,
+	private val baseView: Spinner,
 	private val numberOneView: EditText,
 	private val numberTwoView: EditText,
 	private val operatorView: RadioGroup,
@@ -24,15 +25,22 @@ class ScreenWidget(
 	var resultOnClickListener: (() -> String)? = null
 
 	init {
-		baseProvider = {
-			Base.getByText(
-				baseView.findViewById<RadioButton>(baseView.checkedRadioButtonId).text.toString()
-					.lowercase()
-			)
-		}
-		baseView.setOnCheckedChangeListener { group, checkedId ->
-			val button: RadioButton = group.findViewById(checkedId)
-			baseProvider = { Base.getByText(button.text.toString().lowercase()) }
+		baseProvider = { Base.getByText(baseView.selectedItem.toString()) }
+
+		baseView.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+			override fun onItemSelected(
+				parent: AdapterView<*>?,
+				view: View?,
+				position: Int,
+				id: Long
+			) {
+				baseProvider =
+					{ Base.getByText(parent?.getItemAtPosition(position).toString()) }
+			}
+
+			override fun onNothingSelected(parent: AdapterView<*>?) {
+				setResult("Select base !!!")
+			}
 		}
 
 		numberOneView.addTextChangedListener { numberOneProvider = { it.toString() } }
@@ -52,13 +60,6 @@ class ScreenWidget(
 
 		calculateView.setOnClickListener { setResult(resultOnClickListener?.invoke()) }
 	}
-
-	fun getOperation(): UiOperation = UiOperation(
-		baseProvider?.invoke(),
-		numberOneProvider?.invoke(),
-		numberTwoProvider?.invoke(),
-		operatorProvider?.invoke(),
-	)
 
 	fun setResult(result: String?) {
 		resultView.text = result

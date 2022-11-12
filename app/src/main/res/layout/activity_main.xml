@@ -20,38 +20,17 @@
 		android:text="Base"
 		/>
 
-	<RadioGroup
+	<Spinner
 		android:id="@+id/base"
+		android:layout_marginTop="10dp"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:orientation="horizontal"
-		android:checkedButton="@id/decimal"
-		>
-		<RadioButton
-			android:id="@+id/decimal"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Decimal"
-			/>
-
-		<RadioButton
-			android:id="@+id/binary"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Binary"
-			/>
-
-		<RadioButton
-			android:id="@+id/hexadecimal"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:text="Hexadecimal"
-			/>
-	</RadioGroup>
+		android:gravity="end"/>
 
 	<LinearLayout
 		android:layout_width="wrap_content"
-		android:layout_height="wrap_content">
+		android:layout_height="wrap_content"
+		android:layout_marginTop="20dp">
 		<TextView
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"

@@ -1,3 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">IllCalculator</string>
+
+	<string-array name="base">
+		<item>Binary</item>
+		<item>Ternary</item>
+		<item>Quaternary</item>
+		<item>Quinary</item>
+		<item>Senary</item>
+		<item>Septenary</item>
+		<item>Octal</item>
+		<item>Nonary</item>
+		<item>Decimal</item>
+		<item>Undecimal</item>
+		<item>Duodecimal</item>
+		<item>Tridecimal</item>
+		<item>Tetradecimal</item>
+		<item>Pentadecimal</item>
+		<item>Hexadecimal</item>
+	</string-array>
 </resources>

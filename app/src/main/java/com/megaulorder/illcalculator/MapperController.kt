@@ -14,20 +14,8 @@ class MapperController(
 		)
 	).calculate()
 
-	private fun mapNumber(number: String, base: Base): BooleanArray = when (base) {
-		Base.BINARY -> mapFromBinary(number)
-		Base.DECIMAL -> mapFromDecimal(number)
-		Base.HEXADECIMAL -> mapFromHexadecimal(number)
-	}
-
-	private fun mapFromDecimal(number: String): BooleanArray =
-		toBooleanArray(BigInteger(number, 10).toString(2))
-
-	private fun mapFromHexadecimal(number: String): BooleanArray =
-		toBooleanArray(BigInteger(number, 16).toString(2))
-
-	private fun mapFromBinary(number: String): BooleanArray =
-		toBooleanArray(number)
+	private fun mapNumber(number: String, base: Base): BooleanArray =
+		toBooleanArray(BigInteger(number, base.num).toString(2))
 
 	private fun toBooleanArray(string: String): BooleanArray {
 		return string.toCharArray().map { it == '1' }.toBooleanArray()
