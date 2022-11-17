@@ -31,5 +31,13 @@ class MainActivity : AppCompatActivity() {
 		)
 
 		val controller = ValidationController(widget)
+
+		val encoderWidget = EncoderWidget(
+			findViewById(R.id.decoded_text),
+			findViewById(R.id.encoded_text),
+			findViewById(R.id.encode),
+			findViewById(R.id.decode),
+		)
+		val encoderController = EncoderController(encoderWidget)
 	}
 }
