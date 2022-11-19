@@ -1,11 +1,5 @@
 package com.megaulorder.illcalculator
 
-import kotlin.math.floor
-import kotlin.math.pow
-
-/**
- * мне лееь поэтому оно поддерживает ток англ буквы не различает регистр и не больше 13 символов соре
- */
 class EncoderController(
 	private val widget: EncoderWidget,
 ) {
@@ -15,37 +9,41 @@ class EncoderController(
 	}
 
 	private fun encode(text: String): String {
-		if (text.isEmpty() || text.length > 13) {
-			return "max characters: 13"
+		if (text.isEmpty()) {
+			return "nothing to encode"
 		}
 
-		val result: Long = text
-			.toCharArray()
-			.map { (it.code - 'a'.code).toLong() }
-			.toLongArray()
-			.foldIndexed(0) zhopa@{ index, a, b ->
-				return@zhopa (a + b * 26.0
-					.pow((text.length - 1 - index))).toLong()
-			}
+		val maxBitsPerLetter: Int = (26).toString(2).length
 
-		return result.toString()
+		val result = mutableListOf<String>()
+		for (i in text) {
+			val upperCaseBit: String = if (i.isUpperCase()) "1" else "0"
+			val binaryCode: String = (i.lowercaseChar().code - 'a'.code).toString(2)
+			var prefix: String = upperCaseBit
+			if (binaryCode.length < (26).toString(2).length) {
+				prefix = upperCaseBit + "0".repeat(maxBitsPerLetter - binaryCode.length)
+			}
+			result.add(prefix + binaryCode)
+		}
+
+		return result.joinToString(" ")
 	}
 
 	private fun decode(text: String): String {
-		if (text.isEmpty() || text.length > 8) {
-			return "max characters: 8"
+		if (text.isEmpty()) {
+			return "nothing to decode"
 		}
 
-		var nums = text.toLong()
+		val numbers = text.split(" ")
 
-		val chars = mutableListOf<Char>()
-
-		for (i in 4 downTo 0) {
-			val n: Long = floor(nums.toDouble() / 26.0.pow(i)).toLong()
-			chars.add((n + 'a'.code).toChar())
-			nums -= n * 26.0.pow(i).toLong()
+		val result = mutableListOf<Char>()
+		for (i in numbers) {
+			val isUpperCase: Boolean = i[0] == '1'
+			val decimal: Int = Integer.parseInt(i.substring(1), 2)
+			val letter: Char = (decimal + 'a'.code).toChar()
+			result.add(if (isUpperCase) letter.uppercaseChar() else letter)
 		}
 
-		return chars.joinToString("")
+		return result.joinToString("")
 	}
 }
